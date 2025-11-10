@@ -9,8 +9,19 @@
 
 // TODO: 编写一个函数，根据购买的苹果数量来计算总价。
 // fn calculate_price_of_apples(???) -> ??? { ??? }
+fn calculate_price_of_apples(quantity: u32) -> u32 {
+    if quantity > 40 {
+        quantity * 1
+    } else {
+        quantity * 2
+    }
+}
 fn main() {
     // (可选)你可以选择性地在此处进行试验。
+    println!(
+        "购买35个苹果的总价是：{} Rust元",
+        calculate_price_of_apples(35)
+    );
 }
 
 // 不要修改下面的测试!

@@ -2,12 +2,16 @@
 fn picky_eater(food: &str) -> &str {
     if food == "草莓" {
         "美味!"
+    } else if food == "土豆" {
+        "还行吧"
     } else {
-        1
+        "不吃"
     }
 }
 
 fn main() {
+    let picky_eater_food = String::from("洋葱");
+    println!("我喜欢吃 {picky_eater_food}: {}", picky_eater(&picky_eater_food));
     // (可选)你可以选择性地在此处进行试验。
 }
 
