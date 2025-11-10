@@ -16,7 +16,7 @@ fn main() {
     // 可以尝试用一个字母、一个数字（要用单引号括起来）、一个特殊字符、一个来自与你母语不同语言的字符，
     // 或者一个emoji 😉
     // let your_character = '';
-
+    let your_character = '9';
     if your_character.is_alphabetic() {
         println!("是字母!");
     } else if your_character.is_numeric() {
