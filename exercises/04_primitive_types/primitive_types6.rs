@@ -11,7 +11,7 @@ mod tests {
         // TODO: 使用元组索引来访问 `numbers` 的第二个元素，
         // 并将其赋值给一个名为 `second` 的变量。
         // let second = ???;
-
+        let (_, second, _) = numbers;
         assert_eq!(second, 2, "这不是元组中的第二个数字!");
     }
 }
