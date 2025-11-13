@@ -36,7 +36,11 @@ mod tests {
         // TODO: 利用上述更新语法(update syntax)和模板 `order_template`，
         // 创建你自己的订单(order)结构体实例!并使其通过下面的测试。
         // let your_order =
-
+        let mut your_order = Order {
+            ..order_template
+        };
+        your_order.name = String::from("Hacker in Rust");
+        your_order.count = 1;
         assert_eq!(your_order.name, "Hacker in Rust");
         assert_eq!(your_order.year, order_template.year);
         assert_eq!(your_order.made_by_phone, order_template.made_by_phone);
