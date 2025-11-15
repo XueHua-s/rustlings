@@ -3,16 +3,21 @@ struct Point {
     x: u64,
     y: u64,
 }
-
 #[derive(Debug)]
 enum Message {
     // TODO: 定义下面所使用的不同变体(variants)。
+    Resize { width: u64, height: u64 },
+    Move(Point),
+    Echo(String),
+    ChangeColor(u8, u8, u8),
+    Quit,
 }
 
 impl Message {
     fn call(&self) {
         println!("{self:?}");
     }
+    
 }
 
 fn main() {
