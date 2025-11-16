@@ -29,6 +29,9 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
     for fruit in fruit_kinds {
         // TODO: 如果新水果不在篮子中，则插入它们。
         // 注意，不允许放入任何已经存在的水果类型！
+        if basket.get(&fruit).is_none() {
+            basket.insert(fruit, 1);
+        }
     }
 }
 
