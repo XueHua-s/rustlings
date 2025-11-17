@@ -24,11 +24,16 @@ enum Command {
     Append(usize),
 }
 
-mod my_module {
+ mod my_module {
     use super::Command;
 
     // TODO: 按照上述要求实现该函数。
     // pub fn transformer(input: ???) -> ??? { ??? }
+    pub fn transformer (input: Vec<(String, Command)>) -> Vec<String> {
+        input.into_iter().map(|(string, _)| {
+          string.trim().to_ascii_uppercase().to_string()
+        }).collect()
+    }
 }
 
 fn main() {
@@ -40,7 +45,7 @@ mod tests {
     // TODO: 我们需要引入什么才能使 `transformer` 在作用域内可用呢?
     // use ???;
     use super::Command;
-
+    use super::my_module::transformer;
     #[test]
     fn it_works() {
         let input = vec![
