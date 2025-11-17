@@ -30,8 +30,22 @@ enum Command {
     // TODO: 按照上述要求实现该函数。
     // pub fn transformer(input: ???) -> ??? { ??? }
     pub fn transformer (input: Vec<(String, Command)>) -> Vec<String> {
-        input.into_iter().map(|(string, _)| {
-          string.trim().to_ascii_uppercase().to_string()
+        input.into_iter().map(|(string, command)| {
+            match command {
+                Command::Uppercase => {
+                    string.to_ascii_uppercase().to_string()
+                }
+                Command::Trim => {
+                    string.trim().to_string()
+                }
+                Command::Append(n) => {
+                    let mut result = string.clone();
+                    for _ in 0..n {
+                        result.push_str("bar");
+                    }
+                    result
+                }
+            }
         }).collect()
     }
 }
