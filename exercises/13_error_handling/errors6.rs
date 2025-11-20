@@ -2,7 +2,7 @@
 // 因为调用者可能希望基于错误内容来做决策，而不是将错误打印出来或者进一步传播它。
 // 这里，我们定义了一个自定义错误类型，以便当我们的函数返回错误时，调用者能够决定下一步该怎么做。 
 
-use std::num::ParseIntError;
+use std::{fmt::Error, num::ParseIntError};
 
 #[derive(PartialEq, Debug)]
 enum CreationError {
@@ -16,14 +16,37 @@ enum ParsePosNonzeroError {
     Creation(CreationError),
     ParseInt(ParseIntError),
 }
+use std::fmt;
 
+impl fmt::Display for ParsePosNonzeroError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            ParsePosNonzeroError::Creation(e) => write!(f, "Creation error: {:?}", e),
+            ParsePosNonzeroError::ParseInt(e) => write!(f, "Parse int error: {}", e),
+        }
+    }
+}
+
+impl std::error::Error for ParsePosNonzeroError {}
+impl From<ParseIntError> for ParsePosNonzeroError {
+    fn from(err: ParseIntError) -> Self {
+        ParsePosNonzeroError::ParseInt(err)
+    }   
+}
+impl From<CreationError> for ParsePosNonzeroError {
+    fn from(err: CreationError) -> Self {
+        ParsePosNonzeroError::Creation(err)
+    }
+}
 impl ParsePosNonzeroError {
     fn from_creation(err: CreationError) -> Self {
         Self::Creation(err)
     }
 
     // TODO: 在此处添加另一个错误转换(error conversion)函数。
-    // fn from_parse_int(???) -> Self { ??? }
+    fn from_parse_int(err: ParseIntError) -> Self {
+        Self::ParseInt(err)
+    }
 }
 
 #[derive(PartialEq, Debug)]
@@ -39,10 +62,8 @@ impl PositiveNonzeroInteger {
     }
 
     fn parse(s: &str) -> Result<Self, ParsePosNonzeroError> {
-        // TODO: 将这里修改为返回一个合适的错误，
-        // 而不是在 `parse()` 返回错误时引发程序崩溃(panic)。
-        let x: i64 = s.parse().unwrap();
-        Self::new(x).map_err(ParsePosNonzeroError::from_creation)
+        let x: i64 = s.parse()?;
+        Ok(Self::new(x)?)
     }
 }
 
