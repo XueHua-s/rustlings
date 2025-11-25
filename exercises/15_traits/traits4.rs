@@ -11,7 +11,9 @@ impl Licensed for SomeSoftware {}
 impl Licensed for OtherSoftware {}
 
 // TODO: 通过修改此函数的签名来修复编译器错误。
-fn compare_license_types(software1: ???, software2: ???) -> bool {
+fn compare_license_types<T, U> (software1: T, software2: U) -> bool
+where T: Licensed, U: Licensed,
+{
     software1.licensing_info() == software2.licensing_info()
 }
 
