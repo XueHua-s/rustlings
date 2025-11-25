@@ -2,7 +2,9 @@ trait Licensed {
     // TODO: 为 `licensing_info` 添加一个默认实现，
     // 以便像下面这两个结构体这样的实现者能够共享该默认行为，而无需重复编写该函数。
     // 默认许可信息应该为字符串 "Default license"。
-    fn licensing_info(&self) -> String;
+    fn licensing_info(&self) -> String {
+        "Default license".to_string()
+    }
 }
 
 struct SomeSoftware {
@@ -12,7 +14,6 @@ struct SomeSoftware {
 struct OtherSoftware {
     version_number: String,
 }
-
 impl Licensed for SomeSoftware {} // 不要编辑此行代码。
 impl Licensed for OtherSoftware {} // 不要编辑此行代码。
 
