@@ -19,7 +19,8 @@ impl SomeTrait for OtherStruct {}
 impl OtherTrait for OtherStruct {}
 
 // TODO: 通过修改此函数的签名来修复编译器错误。
-fn some_func(item: ???) -> bool {
+fn some_func<T>(item: T) -> bool
+where T: SomeTrait + OtherTrait,{
     item.some_function() && item.other_function()
 }
 
