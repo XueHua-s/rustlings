@@ -6,7 +6,11 @@ fn capitalize_first(input: &str) -> String {
     let mut chars = input.chars();
     match chars.next() {
         None => String::new(),
-        Some(first) => todo!(),
+        Some(first) =>  {
+            let mut capitalized = first.to_uppercase().to_string();
+            capitalized.extend(chars);
+            capitalized
+        },
     }
 }
 
@@ -15,6 +19,11 @@ fn capitalize_first(input: &str) -> String {
 // ["hello", "world"] -> ["Hello", "World"]
 fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
     // ???
+    let mut result = Vec::new();
+    for word in words {
+        result.push(capitalize_first(word));
+    }
+    result
 }
 
 // TODO: 再次将 `capitalize_first` 函数应用于字符串切片的切片。
@@ -22,6 +31,11 @@ fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
 // ["hello", " ", "world"] -> "Hello World"
 fn capitalize_words_string(words: &[&str]) -> String {
     // ???
+    let mut result = String::new();
+    for word in words {
+        result.push_str(&capitalize_first(word));
+    }
+    result
 }
 
 fn main() {
