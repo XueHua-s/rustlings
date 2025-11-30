@@ -19,6 +19,7 @@ mod tests {
         assert_eq!(fav_fruits_iterator.next(), Some(&"avocado"));
         assert_eq!(fav_fruits_iterator.next(), Some(&"peach")); // TODO: 替换掉 `todo!()`
         assert_eq!(fav_fruits_iterator.next(), Some(&"raspberry"));
+        // Done! 迭代器已经遍历完了所有元素。
         assert_eq!(fav_fruits_iterator.next(), None);
     }
 }
