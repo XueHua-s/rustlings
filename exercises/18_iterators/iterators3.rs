@@ -11,21 +11,44 @@ enum DivisionError {
 // TODO: 如果 `a` 能被 `b` 整除，那么计算 `a` 除以 `b` 的结果。
 // 否则，返回一个合适的错误。
 fn divide(a: i64, b: i64) -> Result<i64, DivisionError> {
-    todo!();
+    // 首先检查除以0的情况
+    if b == 0 {
+        return Err(DivisionError::DivideByZero);
+    }
+
+    // 然后检查整数溢出的情况: i64::MIN / -1 会溢出
+    if a == i64::MIN && b == -1 {
+        return Err(DivisionError::IntegerOverflow);
+    }
+
+    // 最后检查是否能整除
+    if a % b == 0 {
+        Ok(a / b)
+    } else {
+        Err(DivisionError::NotDivisible)
+    }
 }
 
 // TODO: 添加正确的返回类型并完成函数体。
 // 期望的输出: `Ok([1, 11, 1426, 3])`
-fn result_with_list() {
-    let numbers = [27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+fn result_with_list() -> Result<[i64; 4], DivisionError> {
+    let numbers: [i64; 4] = [27, 297, 38502, 81];
+    let division_results: Result<Vec<i64>, DivisionError> = numbers.into_iter().map(|n| divide(n, 27)).collect();
+    match division_results {
+        Ok(v) => Ok(v.try_into().unwrap()),
+        Err(e) => Err(e),
+    }
 }
 
 // TODO: 添加正确的返回类型并完成函数体。
 // 期望的输出: `[Ok(1), Ok(11), Ok(1426), Ok(3)]`
-fn list_of_results() {
+fn list_of_results() -> Vec<Result<i64, DivisionError>> {
     let numbers = [27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    let division_results: Result<Vec<i64>, DivisionError> = numbers.into_iter().map(|n| divide(n, 27)).collect();
+    match division_results {
+        Ok(v) => v.into_iter().map(|num| Ok(num)).collect(),
+        Err(e) => vec![Err(e)],
+    }
 }
 
 fn main() {
