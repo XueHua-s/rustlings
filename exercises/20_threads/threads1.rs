@@ -21,8 +21,11 @@ fn main() {
 
     let mut results = Vec::new();
     for handle in handles {
-        // TODO: 将所有线程的结果收集到 `results` 动态数组中。
         // 使用由 `thread::spawn` 返回的 `JoinHandle` 结构体。
+        match handle.join() {
+            Ok(res) => results.push(res),
+            Err(e) => eprintln!("线程发生错误: {:?}", e),
+        }
     }
 
     if results.len() != 10 {
