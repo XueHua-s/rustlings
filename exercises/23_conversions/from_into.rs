@@ -29,7 +29,27 @@ impl Default for Person {
 // 5. 将分割操作得到的第二个元素解析为 `u8` 类型作为年龄。
 // 6. 如果年龄解析失败，返回 `Person` 的默认值。 
 impl From<&str> for Person {
-    fn from(s: &str) -> Self {}
+    fn from(s: &str) -> Self {
+        let parts: Vec<&str> = s.split(',').collect();
+        if parts.len() != 2 {
+            return Person::default();
+        }
+
+        let name = parts[0].trim();
+        if name.is_empty() {
+            return Person::default();
+        }
+
+        let age = parts[1].trim().parse::<u8>();
+        if age.is_err() {
+            return Person::default();
+        }
+
+        Person {
+            name: name.to_string(),
+            age: age.unwrap(),
+        }
+    }
 }
 
 fn main() {
